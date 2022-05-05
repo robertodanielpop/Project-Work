@@ -1,0 +1,106 @@
+{% load filter %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'parkatdcu/style.css' %}">
+
+<div class="title">
+<ul>
+<li><a href="{% url 'parkatdcu:index' %}">Carpark Information</a></li>
+<li><a href="{% url 'parkatdcu:campus' %}">Bus Information</a></li>
+<li><a class="a_no_border" href="https://loop.dcu.ie/mod/page/view.php?id=1362396">My DCU - Student</a></li>
+<li><a href="https://www.dcu.ie/iss/staff-my-page">My DCU - Staff</a></li>
+<li><a href="https://www.dcu.ie/library">Library</a></li>
+<li><a href="https://loop.dcu.ie">Loop</a></li>
+</ul>
+</div>
+
+
+<img class="logo" src = "{% static 'parkatdcu/images/DCU_logo.png' %}" alt= "dcu_logo" height = "128px" width = "120px">
+
+<h1 class="title2">Carpark Information</h1>
+
+<div class="campus">
+<h2 class="black">{{ campus }}</h2>
+<ul>
+  {% if carparks != False %}
+    {% for carpark in carparks %}
+        <li><b>{{carpark.name}}: </b>{{carpark.spaces}} spaces, {{carpark.disabled_spaces}} spaces for people with disabilities</li>
+        {% if carpark.spaces_available|integer > 0 %}
+          <li class="color_green">Spaces available:  {{ carpark.spaces_available }}<br><br>
+        </li>
+        {% else %}
+          <li class="color_red">Spaces available: {{ carpark.spaces_available }}<br><br></li>
+        {% endif %}
+    {% endfor %}
+  {% endif %}
+</ul>
+{% if carparks == False %}
+  <p class="fix" >No carparks found</p>
+{% endif %}
+
+{% if campus == "No such campus" %}
+  <h4 class="fix">Oops, this campus doesn't exist</h4>
+{% endif %}
+</div>
+
+<div class="button1"><div class="button"><input type="button" value="Back" onclick=location.href="{% url 'parkatdcu:index' %}"></div></div>
+
+
+<footer class="bottom">
+
+  <div class="left">
+  <ul>
+  <li><a href="http://www.dcu.ie/studentapps">Student Apps</a></li>
+  <li><a href="http://www.dcu.ie/staff">Staff Apps</a></li>
+  <li><a href="http://loop.dcu.ie/">Loop</a></li>
+  <li><a href="https://www.dcu.ie/info/information-dcu-disclaimer">Disclaimer</a></li>
+  </ul>
+  </div>
+  <div class="left">
+  <ul>
+  <li><a href="http://login.mail.dcu.ie/">Student Email</a></li>
+  <li><a href="http://apps.dcu.ie/">Staff Email</a></li>
+  </ul>
+  </div>
+  <div class="left">
+  <ul>
+  <li><a href="https://www.dcu.ie/iss/policies-privacy-and-cookies-statement-information-systems-services">Privacy and Cookies</a></li>
+  <li><a href="https://www.dcu.ie/marketing/contact-communications-marketing">Contact Us</a></li>
+  </ul>
+  </div>
+  </div>
+  
+  <div class = "social_position">
+  <div class = "social_media">
+  <a href="https://www.facebook.com/DCU" target="_blank">
+  <img src="{% static 'parkatdcu/images/facebook.png' %}" alt="Facebook Logo" height="27" width="27"></a>
+  </div>
+  <div class = "social_media">
+  <a href="https://twitter.com/DCU/" target="_blank">
+  <img src="{% static 'parkatdcu/images/twitter.png' %}" alt="Twitter Logo" height="27" width="27"></a>
+  </div>
+  <div class = "social_media">
+  <a href="http://www.youtube.com/user/DublinCityUniversity" target="_blank">
+  <img src="{% static 'parkatdcu/images/youtube.png' %}" alt="Youtube Logo" height="27" width="27"></a>
+  </div>
+  <div class = "social_media">
+  <a href="https://www.instagram.com/dublincityuniversity/" target="_blank">
+  <img src="{% static 'parkatdcu/images/instagram.png' %}" alt="Instagram Logo" height="27" width="27"></a>
+  </div>
+  </div>
+  
+  <div class="Other_right">
+  <div class="Other">
+  <li><a href="http://www.thehelix.ie/">
+  <img src="{% static 'parkatdcu/images/helix.png' %}" alt = "Helix Logo"></a></li>
+  </div>
+  <div class="Other">
+  <li><a href="http://www.esf.ie/">
+  <img src="{% static 'parkatdcu/images/Irelands-EU-S-IFP-2014-2020.jpg' %}" alt="Irelands EU S IFP Logo"></a></li>
+  </div>
+  <div class="Other">
+  <li><a href="http://www.esf.ie/">
+  <img src="{% static 'parkatdcu/images/eu_image.jpg' %}" alt="EU logo"></a></li>
+  </div>
+  </div>
+  
+  </footer>

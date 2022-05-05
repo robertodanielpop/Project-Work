@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html class="border-l" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basket</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<%- include nav.ejs %>
+
+<section class="py-1 bg-gray-100">
+  <div class="container mx-auto px-1">
+    <div class="p-8 lg:p-20 bg-white">
+      <h2 class="mb-20 text-5xl font-bold font-heading">Your cart</h2>
+      <div class="flex flex-wrap items-center -mx-4">
+        <div class="w-full xl:w-8/12 mb-8 xl:mb-0 px-4">
+          <div class="hidden lg:flex w-full">
+            <div class="w-full lg:w-3/6">
+              <h4 class="mb-6 font-bold font-heading text-gray-500">Description</h4>
+            </div>
+            <div class="w-full lg:w-1/6">
+              <h4 class="mb-6 font-bold font-heading text-gray-500">Price</h4>
+            </div>
+            <div class="w-full lg:w-1/6 text-center">
+              <h4 class="mb-6 font-bold font-heading text-gray-500">Quantity</h4>
+            </div>
+            <div class="w-full lg:w-1/6 text-right">
+              <h4 class="mb-6 font-bold font-heading text-gray-500">Subtotal</h4>
+            </div>
+          </div>
+          <div class="mb-12 py-6 border-t border-b border-gray-200">
+
+
+
+
+
+
+
+
+
+            <div class="flex flex-wrap items-center -mx-4 mb-6 md:mb-3">
+              <div id="productlist"></div>
+              <div class="hidden w-full md:w-4/6 lg:w-6/12 px-4 mb-6 md:mb-0">
+                <div class="flex -mx-4 flex-wrap items-center">
+                  <div class="w-full md:w-1/3 px-4 mb-3">
+                    <div class="flex items-center justify-center w-full md:w-24 h-32 bg-gray-100">
+                      <img class="h-full object-contain" src="yofte-assets/images/waterbottle.png" alt="">
+                    </div>
+                  </div>
+                  <div class="w-2/3 px-4">
+                    <h3 class="mb-2 text-xl font-bold font-heading">BRILE water filter carafe</h3>
+                    <button id="0" class="hover:text-blue-400 text-gray-500">Remove</button>
+                  </div>
+                </div>
+              </div>
+              <div class="hidden lg:block lg:w-2/12 px-4">
+                <p id="fixed_price" class="hidden text-lg text-blue-500 font-bold font-heading">$29.89</p>
+                <span class="hidden text-xs text-gray-500 line-through">$33.69</span>
+              </div>
+              <div class="hidden w-auto md:w-1/6 lg:w-2/12 px-4">
+                <div class="hidden inline-flex items-center px-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md">
+                  <button onclick="minus()" class="py-2 hover:text-gray-700">
+                    <svg width="12" height="2" viewbox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="0.35"><rect x="12" width="2" height="12" transform="rotate(90 12 0)" fill="currentColor"></rect></g></svg>
+                  </button>
+                  <input id="quantity" class="w-12 m-0 px-2 py-4 text-center md:text-right border-0 focus:ring-transparent focus:outline-none rounded-md" type="number" placeholder="1">
+                  <button onclick="add()" class="py-2 hover:text-gray-700">
+                    <svg width="12" height="12" viewbox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="0.35"><rect x="5" width="2" height="12" fill="currentColor"></rect><rect x="12" y="5" width="2" height="12" transform="rotate(90 12 5)" fill="currentColor"></rect></g></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="hidden w-auto md:w-1/6 lg:w-2/12 px-4 text-right">
+                <p id="price" class="text-lg text-blue-500 font-bold font-heading">$29.89</p>
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+          </div>
+
+        </div>
+        <div class="w-full xl:w-4/12 px-4">
+          <div class="p-6 md:p-12 bg-black">
+            <h2 class="mb-6 text-4xl font-bold font-heading text-white">Cart totals</h2>
+            <div class="flex mb-8 items-center justify-between pb-5 border-b border-blue-100">
+              <span class="text-blue-50">Subtotal</span>
+              <span id="net_total" class="text-xl font-bold font-heading text-white">€0</span>
+            </div>
+            <h4 class="mb-2 text-xl font-bold font-heading text-white">Details</h4>
+            <div class="flex mb-2 justify-between items-center">
+              <span class="text-blue-50">Price Excluding Shipping</span>
+            </div>
+            <div class="flex mb-2 justify-between items-center">
+              <span class="text-blue-50">Tax Included - 23%</span>
+            </div>
+
+
+
+            <div class="flex mt-10 mb-10 justify-between items-center">
+              <span class="text-xl font-bold font-heading text-white">Order total</span>
+              <span id="gross_total" class="text-xl font-bold font-heading text-white">€0</span>
+            </div>
+            <a class="shadow-xl mt-5 p-2 hover:shadow-inner block w-full py-4 bg-blue-500 hover:bg-blue-400 text-center text-white font-bold font-heading uppercase rounded-md transition duration-200" href="/address" onClick="checkout()">Proceed to Checkout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div id="productlist"></div>
+</section>
+
+<script>
+
+let basketId = 0;
+
+let netTotal = document.getElementById("net_total").textContent;
+
+let grossTotal = document.getElementById("gross_total").textContent;
+
+netTotal = parseFloat(netTotal.slice(1));
+
+grossTotal = parseFloat(grossTotal.slice(1)) + netTotal;
+
+console.log(netTotal);
+
+let quantityItem = document.getElementById("quantity").value;
+let priceItem = document.getElementById("price").textContent;
+
+console.log(quantityItem + "Worked");
+
+let totalItemPrice = parseFloat(priceItem.slice(1));
+
+totalItemPrice = totalItemPrice.toFixed(2);
+
+console.log(totalItemPrice);
+
+    totalItemPrice = totalItemPrice * quantityItem;
+
+    totalItemPrice = parseFloat(totalItemPrice.toFixed(2));
+
+    totalItemPrice = "$" + JSON.stringify(totalItemPrice);
+    document.getElementById("quantity").value = quantityItem;
+    document.getElementById("price").textContent = totalItemPrice;
+
+priceItem = document.getElementById("price").textContent;
+
+function minus() {
+
+    quantityItem -= 1;
+
+    let priceItemChange = document.getElementById("fixed_price").textContent;
+
+    let changedItemPrice = parseFloat(priceItemChange.slice(1));
+
+    changedItemPrice = changedItemPrice.toFixed(2);
+
+    changedItemPrice = changedItemPrice * quantityItem;
+
+    changedItemPrice = parseFloat(changedItemPrice.toFixed(2));
+
+    changedItemPrice = "$" + JSON.stringify(changedItemPrice);
+    document.getElementById("quantity").value = quantityItem;
+    document.getElementById("price").textContent = changedItemPrice;
+}
+
+function add() {
+
+    quantityItem = quantityItem - 1 + 1 + 1;
+
+    let priceItemChange = document.getElementById("fixed_price").textContent;
+
+    let changedItemPrice = parseFloat(priceItemChange.slice(1));
+
+    changedItemPrice = parseFloat(changedItemPrice.toFixed(2));
+
+    changedItemPrice = changedItemPrice * quantityItem;
+
+    changedItemPrice = parseFloat(changedItemPrice.toFixed(2));
+
+    changedItemPrice = "$" + JSON.stringify(changedItemPrice);
+    document.getElementById("quantity").value = quantityItem;
+    document.getElementById("price").textContent = changedItemPrice;
+}
+
+
+
+            let productlist = document.getElementById("productlist");
+            let req = "http://127.0.0.1:8000/basket/"
+            fetch(req,  {
+                  method: 'GET',
+                  headers: {
+                 'Accept': 'application/json',
+                 'Content-Type': 'application/json',
+                 "Authorization": 'Bearer ' + localStorage.getItem("access") }})
+            .then(response => response.json())
+            .then(data => { 
+
+            console.log(JSON.stringify(data));
+
+            if("detail" in data) {
+                console.log(data.detail);
+                if("Given token not valid for any token type" == data.detail) {
+                    let newListelement = document.createElement("div"); // create an li element
+                    newListelement.innerHTML = '<div class="m-5 text-xl p-3 text-blue-500 hover:text-blue-400"> <a href="/login" class="block relative h-48 rounded overflow-hidden">Log in to view products</div>';
+                    productlist.appendChild(newListelement);
+                }
+            }
+            else {
+            data.forEach(element => {
+                data = element.items; basketId = element.id; console.log(basketId);})
+                if(data.length === 0) {
+                    let newListelement = document.createElement("div");
+                    newListelement.innerHTML = '<div class="inline-text justify-center m-10 w-full"><p>Cart is currently empty</p><a href="/products" class="text-blue-500 hover:text-blue-400">Browse Products</a></div>';
+                    productlist.appendChild(newListelement);}
+
+            data.forEach(element => {
+                console.log(element);
+                let productId = element.product_id;
+                let productQuantity = element.quantity
+
+                fetch(productId,  {
+                    method: 'GET',
+                    headers: {
+                   'Accept': 'application/json',
+                   'Content-Type': 'application/json',
+                   "Authorization": 'Bearer ' + localStorage.getItem("access") }})
+               .then(response => response.json())
+               .then(data2 => { 
+                 console.log(data2.id);
+                let productName = data2.name; // get the product name
+                let productPrice = data2.price;
+                let productImage = data2.product_image;
+                let newListelement = document.createElement("div"); // create an li element
+                let productSubtotal = parseFloat(data2.price * productQuantity).toFixed(2);
+                netTotal = (parseFloat(netTotal) + parseFloat(productSubtotal)).toFixed(2);
+
+                grossTotal = netTotal;
+
+                document.getElementById("gross_total").textContent = "€" + grossTotal;
+
+                document.getElementById("net_total").textContent = "€" +  netTotal;
+
+                newListelement.innerHTML = '<div id="remove_item_' + element.id + '" class="flex flex-wrap items-center -mx-4 mb-6 md:mb-3"><div class="w-full md:w-4/6 lg:w-6/12 px-4 mb-6 md:mb-0"><div class="flex -mx-4 flex-wrap items-center"><div class="w-full md:w-1/3 px-4 mb-3"><div class="flex items-center justify-center w-full md:w-24 h-32 bg-gray-100"><img class="h-full object-contain" src="' + productImage + '" alt=""></div></div><div class="w-1/3 px-4"><h3 class="mb-2 text-xl font-bold font-heading">' + productName + '</h3><button onClick="removeFromCart(this.id)" id="' + data2.id+ '" class="hover:text-blue-400 text-gray-500">Remove</button></div></div></div><div class="hidden lg:block lg:w-2/12 px-4"><p id="fixed_price' + data2.id + '" class="ml-5 text-lg text-blue-500 font-bold font-heading">' + "€" + productPrice + '</p></div><div class="w-auto md:w-1/6 lg:w-2/12 px-4"><div class="inline-flex items-center px-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"><button onclick="minusButton(' + data2.id + ')" class="py-2 hover:text-gray-700"><svg width="12" height="2" viewbox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="0.35"><rect x="12" width="2" height="12" transform="rotate(90 12 0)" fill="currentColor"></rect></g></svg></button><input id="quantity' + data2.id + '" class="w-12 m-0 px-2 py-4 text-center md:text-right border-0 focus:ring-transparent focus:outline-none rounded-md pr-5" type="text" readonly value="' + productQuantity + '"><button onclick="addButton(' + data2.id + ')" class="py-2 hover:text-gray-700"><svg width="12" height="12" viewbox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="0.35"><rect x="5" width="2" height="12" fill="currentColor"></rect><rect x="12" y="5" width="2" height="12" transform="rotate(90 12 5)" fill="currentColor"></rect></g></svg></button></div></div><div class="w-auto md:w-1/6 lg:w-2/12 px-4 text-right"><p id="subtotal' + data2.id + '" class="ml-5 text-lg text-blue-500 font-bold font-heading">€' + productSubtotal + '</p></div><div class="w-auto md:w-1/6 lg:w-2/12 px-4 text-right"></div>';
+                productlist.appendChild(newListelement);})
+
+            })} });
+
+
+
+function removeFromCart(ProductId){
+    console.log(ProductId);
+    console.log("clicked");
+    ProductId = parseInt(ProductId);
+    let access = localStorage.getItem("access")
+    if(access){
+        
+        fetch("http://127.0.0.1:8000/delete/",
+        {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer "+access
+            },
+            method: "POST",
+            body: JSON.stringify({"product_id": ProductId})
+        })
+        .then(response => response.json() )
+        .then(data => {
+            console.log(data);
+	    window.location.reload();					//the product has been added to the basket
+						//You should show some confirmation to the user
+        })
+
+    }
+    else (
+        //the user is not logged in,redirect them to the login page
+        window.location.href = "/login"
+    )
+}
+
+let freeShipping = document.getElementById("free_shipping");
+
+let expressShipping = document.getElementById("express_shipping");
+
+console.log(freeShipping.checked + "?");
+console.log(expressShipping + "?");
+
+let shippingFee = 0;
+
+
+
+function selectFreeShipping() {
+    console.log("clicked free");
+    document.getElementById("free_shipping").checked = true;
+
+    if(expressShipping.checked && freeShipping.checked) {expressShipping.checked = false; freeShipping.checked = true};
+    
+    if(shippingFee === 12) {grossTotal = grossTotal - 12; shippingFee = 0};
+    console.log(shippingFee);
+    //if(shippingFee = 0) {grossTotal = grossTotal + 12};
+
+    //shippingFee = 0;
+    grossTotal = parseFloat(grossTotal);
+    console.log(parseFloat(grossTotal));
+
+
+    document.getElementById("gross_total").textContent = "€" + (parseFloat(grossTotal)).toFixed(2);
+
+    document.getElementById("shipping_option_free").style.display = "block";
+    document.getElementById("shipping_option_express").style.display = "none";
+}
+
+ document.getElementById("free_shipping").click();
+
+function selectExpressShipping() {
+    console.log("clicked");
+    document.getElementById("express_shipping").checked = true;
+    if(freeShipping.checked && expressShipping.checked) {freeShipping.checked = false; expressShipping.checked = true;}
+
+    if(shippingFee === 0) {grossTotal = (grossTotal - 1 + 1) + 12; shippingFee = 12};
+    console.log(shippingFee);
+    //grossTotal = grossTotal + 12;
+
+    shippingFee = 12;
+    grossTotal = parseFloat(grossTotal);
+    console.log(parseFloat(grossTotal));
+
+    document.getElementById("gross_total").textContent = "€" + (parseFloat(grossTotal)).toFixed(2); 
+
+    document.getElementById("shipping_option_free").style.display = "none";
+    document.getElementById("shipping_option_express").style.display = "block";
+}
+
+function minusButton(ProductId){
+    console.log(ProductId);
+    console.log("clicked");
+    ProductId = parseInt(ProductId);
+    let access = localStorage.getItem("access")
+    if(access){
+        fetch("http://127.0.0.1:8000/remove/",
+        {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer "+access
+            },
+            method: "POST",
+            body: JSON.stringify({"product_id": ProductId, "quantity":quantity})
+        })
+        .then(response => response.json() )
+        .then(data => {
+            console.log(data)
+						//the product has been added to the basket
+						//You should show some confirmation to the user
+        })
+
+
+        let quantityId = "quantity" + JSON.stringify(ProductId);
+
+        let adjustQuantity = document.getElementById(quantityId).value;
+
+        adjustQuantity = parseInt(adjustQuantity);
+
+        if(adjustQuantity > 0) {
+
+        adjustQuantity -= 1;
+
+        document.getElementById("quantity" + ProductId).value = adjustQuantity;
+
+       let priceItemChange = document.getElementById("fixed_price" + ProductId).textContent;
+ 
+       let changedItemPrice = parseFloat(priceItemChange.slice(1));
+
+       changedItemPrice = parseFloat(changedItemPrice.toFixed(2));
+
+
+
+       netTotal = parseFloat(netTotal) - parseFloat(changedItemPrice);
+
+       document.getElementById("net_total").textContent = "€" + netTotal.toFixed(2);
+
+       grossTotal = parseFloat(grossTotal) - parseFloat(changedItemPrice);
+
+       document.getElementById("gross_total").textContent = "€" + grossTotal.toFixed(2);
+
+       changedItemPrice = changedItemPrice * adjustQuantity;
+
+       changedItemPrice = parseFloat(changedItemPrice);
+
+
+       changedItemPrice = "€" + changedItemPrice.toFixed(2);
+       document.getElementById("subtotal" + ProductId).textContent = changedItemPrice;
+
+       if(adjustQuantity === 0) {
+           document.getElementById("remove_item_" + JSON.stringify(ProductId)).style = "none";
+       }
+
+       }
+
+       
+        
+    }
+    else (
+        //the user is not logged in,redirect them to the login page
+        window.location.href = "/login"
+    )
+}
+
+function addButton(ProductId){
+    console.log(ProductId);
+    console.log("clicked");
+    ProductId = parseInt(ProductId);
+    let access = localStorage.getItem("access")
+    if(access){
+        fetch("http://127.0.0.1:8000/add/",
+        {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer "+access
+            },
+            method: "POST",
+            body: JSON.stringify({"product_id": ProductId, "quantity": 1})
+        })
+        .then(response => response.json() )
+        .then(data => {
+            console.log(data)
+						//the product has been added to the basket
+						//You should show some confirmation to the user
+        })
+
+        let quantityId = "quantity" + JSON.stringify(ProductId);
+
+        let adjustQuantity = document.getElementById(quantityId).value;
+
+        adjustQuantity = parseInt(adjustQuantity);
+
+        adjustQuantity += 1;
+
+        document.getElementById("quantity" + ProductId).value = adjustQuantity;
+
+       let netPrice = document.getElementById("net_price");
+
+       let priceItemChange = document.getElementById("fixed_price" + ProductId).textContent;
+ 
+       let changedItemPrice = parseFloat(priceItemChange.slice(1));
+
+       changedItemPrice = parseFloat(changedItemPrice.toFixed(2));
+
+       netTotal = parseFloat(netTotal) + parseFloat(changedItemPrice);
+
+       document.getElementById("net_total").textContent = "€" + netTotal.toFixed(2);
+
+       grossTotal = parseFloat(grossTotal) + parseFloat(changedItemPrice);
+
+       document.getElementById("gross_total").textContent = "€" + grossTotal.toFixed(2);
+
+
+
+       changedItemPrice = changedItemPrice * adjustQuantity;
+
+       changedItemPrice = parseFloat(changedItemPrice);
+
+       console.log(basketId + "abdcw");
+
+       changedItemPrice = "€" + changedItemPrice.toFixed(2);
+       document.getElementById("subtotal" + ProductId).textContent = changedItemPrice;
+
+    }
+    else (
+        //the user is not logged in,redirect them to the login page
+        window.location.href = "/login"
+    )
+
+}
+
+
+</script>
+
+<%- include footer %>
+
+</body>
+</html>

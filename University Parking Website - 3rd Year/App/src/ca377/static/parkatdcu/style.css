@@ -1,0 +1,310 @@
+body { 
+    padding: 10px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sanss-serif;
+}
+
+.logo {
+    margin-left: 78px;
+    margin-top: -5px;
+    position: relative;
+}
+
+.title2 {
+    border: solid;
+    border-width:0px 0px 1px 10px;
+    padding: 5px;
+    font: 10px;
+}
+
+.black {
+    background-color: black;
+    color: white;
+    width: 20%;
+    left: 42%;
+    position: relative;
+}
+
+.title {
+    background-color: #333;
+    width: 90%;
+    position: absolute;
+    top: 0%;
+    height: 50px;
+    left: 5%;
+}
+
+.title li {
+    display: inline-block;
+    padding: 2px;
+    border-right: solid;
+    border-color: white;
+    border-width: 1px;
+}
+
+.title a {
+    color: white;
+    text-decoration: none;
+    border-width: 1px;
+    margin: 12px;
+    text-align: center;
+}
+
+.a_no_border {
+    color: white;
+    text-decoration: none;
+    margin: 2px;
+}
+
+.title a:hover {
+    text-decoration: underline;
+}
+
+.title ul {
+    float: right;
+}
+
+.title2 {
+    margin-left: 25px;
+}
+
+.campus {
+    text-align: center;
+    margin-top: 5%;
+}
+
+.color_green {
+    color: green;
+    list-style: none;
+}
+
+.color_red {
+    color: red;
+    list-style: none;
+}
+
+footer {
+    margin-top: 214px;
+    background-color: #646464;
+    border-bottom: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-style: solid;
+    height: 120px;
+    position: absolute;
+    bottom: 20px;
+    padding: 20px;
+    left: 5%;
+    width: 90%;
+}
+
+input[type=text] {
+    width: 20%;
+    height: 28px;
+    display: inline-block;
+    border-radius: 5px;
+    text-align: center;
+}
+
+input[type=submit] {
+    width: 5%;
+    margin-right: 115px;
+    background-color: #e74725;
+    border-radius: 8px;
+}
+
+input[type=submit]:hover {
+    background-color: #e74725;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.button [type=submit]{
+    font-size: large;
+}
+
+.button2 [type=submit]{
+    font-size: large;
+    left: 46%;
+    position: absolute;
+    width: 150px;
+}
+
+
+.left {
+    float: left;
+}
+
+.left a {
+    color: white;
+    list-style: none;
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-spacing: 2px;
+    margin-left: -15px;
+}
+
+.left li {
+    margin-bottom: 5px;
+    list-style: none;
+}
+
+.left a:hover {
+    text-decoration: underline;
+}
+
+.right {
+    float: right;
+}
+
+.campus li {
+    list-style: none;
+}
+
+.social_media {
+    display: inline-block;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.social_position {
+    left: 47%;
+    position: absolute;
+}
+
+.Other {
+    display: inline-block;
+    margin: 10px;
+}
+
+.Other_right {
+    float: right;
+    margin-top: 0px;
+    margin-right: 10px;
+    list-style: none;
+}
+
+.bottom {
+    bottom: auto;
+}
+
+.bus_align {
+    padding: 5px;
+    display: table;
+    clear: both;
+    margin-left: 15%;
+    margin-top: 15px;
+}
+
+.bus {
+    padding: 10px;
+    float: left;
+    border-right: solid;
+}
+
+.bus1 {
+    padding: 10px;
+    float: left;
+    border-left: solid;
+}
+
+input[type=button] {
+    width: 5%;
+    margin-right: 115px;
+    background-color: #e74725;
+    border-radius: 8px;
+    height: 40px;
+    font-size: 15px;
+}
+
+input[type=button]:hover {
+    background-color: #e74725;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.button1 {
+    padding: 5px;
+    text-align: center;
+    margin-left: 12%;
+}
+
+.fix {
+    margin-left: 4%;
+}
+
+.positioning {
+    display: none;
+    top: 58%;
+    left: 58.5%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+  
+  .loading_animation {
+    border: 2px solid white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border-top-color: #e74725;
+    border-left-color: #e74725;
+    border-bottom-color: white;
+    border-right-color: white;
+    animation: spin 1s infinite ease-in;
+  }
+  
+  @keyframes spin {
+    100% {
+      transform: rotate(1080deg);
+    }
+  }
+  
+  .spin_message {
+    margin-left: -28%;
+  }
+
+  .form {
+      margin-left: 50px;
+  }
+  .form option{
+    border: solid;
+    display: inline-block;
+    bottom: 0%;
+    font-size: 320%;
+    margin: 5px;
+    padding: 5px;
+  }
+  
+  .form option:hover {
+    background-color: #e74725;
+    cursor: pointer;
+  }
+  
+  .form select {
+    border: 0;
+    height: 100px;
+    outline: 0;
+  }
+
+  .form selected {
+      background-color:#e74725;
+  }
+  .form Label {
+      margin-bottom: -5%px;
+  }
+
+  .form user-select {
+      background-color: #e74725;
+  }
+
+  ::selection {
+      background-color: #e74725;
+  }
+  
+  .underline {
+      text-decoration: underline;
+      color: green;
+  }
+
+/* //https://stackoverflow.com/questions/58311325/displaying-spinner-onclick *\

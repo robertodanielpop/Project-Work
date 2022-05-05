@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html class="border-l" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Information</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    
+
+</head>
+
+<body>
+
+<%- include nav.ejs %>
+
+
+<div class="bg-gray-300">
+    <div class="py-1">
+        <div class="mx-auto bg-white shadow-lg rounded-lg md:max-w-xxl mx-2 p-10">
+            <div class="md:flex ">
+                <div class="w-full p-4 px-5 py-5">
+                    <div class="flex flex-row">
+                        <h2 class="text-3xl font-semibold">Personal Information</h2>
+                    </div>
+                    <div class="flex flex-row pt-2 text-xs pt-6 pb-5"> <span class="font-bold">Information</span> <small class="text-gray-400 ml-1"></small> <small class="text-gray-400 ml-1">></small> <span class="text-gray-400 ml-1">Payment</span> </div> <span>Customer Information</span>
+                    <div class="relative pb-5"> <input id="email_autofill" type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="E-mail"> </div> <span>Shipping Address</span>
+                    <div class="grid md:grid-cols-2 md:gap-2"> <input id="first_name_autofill" type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="First name*"> <input id="last_name_autofill" type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Last name*"> </div> <input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Company (optional)"> <input id="address_autofill" type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Address*"> <input type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Apartment, suite, etc. (optional)">
+                    <div class="grid md:grid-cols-3 md:gap-2"> <input id="zipcode_autofill" type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Zipcode*"> <input id="city_autofill" type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="City*"> <input id="county_autofill" type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="County/State*"> </div> <input id="country_autofill" type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Country*"> <input id="telephone_autofill" type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Phone Number*">
+                    <div class="flex justify-between items-center pt-2"> <button onClick="location.href= 'checkout'" type="button" class="h-12 w-24 text-blue-500 hover:text-blue-400 text-xs font-medium">Return to cart</a> <button onClick='location.href="/checkout"' type="button" class="h-12 w-48 rounded font-medium text-xs bg-blue-500 hover:bg-blue-400 text-white">Continue to Payment</button> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let productlist = document.getElementById("productlist");
+            let req = "http://127.0.0.1:8000/users/"
+            fetch(req,  {
+                  method: 'GET',
+                  headers: {
+                 'Accept': 'application/json',
+                 'Content-Type': 'application/json',
+                 "Authorization": 'Bearer ' + localStorage.getItem("access") }})
+            .then(response => response.json())
+            .then(data => { 
+
+            console.log(JSON.stringify(data));
+            
+            data.forEach(element => {
+
+            console.log(element.email);
+
+            document.getElementById("email_autofill").value = element.email;
+            document.getElementById("first_name_autofill").value = element.first_name;
+            document.getElementById("last_name_autofill").value = element.last_name;
+            document.getElementById("address_autofill").value = element.address;
+            document.getElementById("zipcode_autofill").value = element.zipcode;
+            document.getElementById("country_autofill").value = element.country;
+            document.getElementById("city_autofill").value = element.city;
+            document.getElementById("county_autofill").value = element.county;
+            document.getElementById("telephone_autofill").value = element.telephone;
+
+            })
+
+
+             });
+</script>
+
+</body>
+
+<%- include footer %>
+
+</html>
+
+
+<!-- https://bbbootstrap.com/snippets/tailwind-css-checkout-form-template-48654569 -->

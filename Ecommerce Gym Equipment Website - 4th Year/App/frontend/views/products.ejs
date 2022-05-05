@@ -1,0 +1,65 @@
+<html>
+    <head>
+         <link rel="stylesheet" href="stylesheets/tailwind-output.css">
+    </head>
+    <body>
+<%- include scroller %>
+<%- include nav %>
+
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-wrap w-full mb-8">
+      <div class="w-full mb-6 lg:mb-0">
+
+        <h1 class="sm:text-4xl text-5xl font-bold font-medium title-font mb-2 text-gray-900">Product List</h1> 
+<div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
+       <div class="h-1 w-20 bg-blue-500 rounded"></div>
+
+
+<%- include search.ejs %>
+      </div>
+    </div>
+</div>
+ 
+    <div id="productlist"class="flex flex-wrap -m-3">
+
+        </div>
+      </div>
+</section>
+ 
+
+
+        <script>
+            let productlist = document.getElementById("productlist");
+            let req = "http://127.0.0.1:8000/products/"
+            fetch(req,  {
+                  method: 'GET',
+                  headers: {
+                 'Accept': 'application/json',
+                 'Content-Type': 'application/json',
+                  }})
+            .then(response => response.json())
+            .then(data => { 
+
+            console.log(JSON.stringify(data));
+
+            data.forEach(element => {
+                let productId = element.id;
+                let productName = element.name; // get the pokemon name
+                let productPrice = element.price;
+                let productImage = element.product_image;
+                let newListelement = document.createElement("div"); // create an li element
+                newListelement.innerHTML = '<div class="hover:text-blue-400 p-3"> <a href="/product" class="block relative h-48 rounded overflow-hidden"><img onclick="grab(this.id)" id="' + productId + '" alt="ecommerce" class="object-cover object-center w-72 h-48 block border-solid border-2 border-black" src="' + productImage + '"></a><div class="mt-4"><h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">Gym Equipment</h3><h2 class="text-gray-900 title-font text-lg font-medium">' + productName + '</h2><p class="mb-5 mt-1">' + "€" + productPrice + '</p></div></div>';
+                productlist.appendChild(newListelement);
+            }) });
+
+
+           function grab(id) {
+               localStorage.setItem("ProductId", id);
+           }
+
+        </script>
+    </body>
+
+<%- include footer %>
+</html>

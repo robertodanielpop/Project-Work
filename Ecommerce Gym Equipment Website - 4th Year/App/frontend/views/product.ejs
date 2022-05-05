@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title id="title">Product</title>
+      <link rel="stylesheet" href="stylesheets/tailwind-output.css">
+  </head>
+  <body>
+<%- include scroller %>
+
+<%- include nav %>
+
+    <main class="my-8">
+        <div class="container mx-auto px-6">
+            <div class="md:flex md:items-center">
+                <div class="w-full h-64 md:w-1/2 lg:h-96">
+                    <img id="product_photo" class="h-full w-full rounded-md object-cover max-w-lg mx-auto" src="https://images.unsplash.com/photo-1610337673044-720471f83677?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8NDA0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=1051&q=80" alt="Product">
+                </div>
+                <div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
+                    <h3 id="product_name" class="text-gray-700 uppercase text-lg">Product</h3>
+                    <span id="product_price" class="text-gray-500 mt-3">Price</span>
+                    <hr class="my-3">
+                    <div class="mt-2">
+                        <label class="text-gray-700 text-sm" for="count">Count:</label>
+                        <div class="flex items-center mt-1">
+                            <button onclick="add()" class="text-gray-500 focus:outline-none focus:text-gray-600">
+                                <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </button>
+                            <span id = "product_quantity" class="text-gray-700 text-lg mx-2">1</span>
+                            <button onclick="minus()" class="text-gray-500 focus:outline-none focus:text-gray-600">
+                                <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                   
+                    <div class="flex items-center mt-6">
+                        <button onclick="addToCart()" class="px-8 py-2 bg-blue-500 text-white text-sm font-medium rounded hover:bg-blue-400 focus:outline-none focus:bg-blue-500">Add to Basket</button>
+
+<p id="added_to_cart" class="hidden m-5 bg-gray-200 text-gray-500" >Added to cart</p>
+
+<button id = "not_logged_id" class="hidden px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">Order Now</button>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="mt-16">
+                <h3 class="text-gray-600 text-2xl font-medium">More Products</h3>
+                <div id = "productlist" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
+                </div>
+            </div>
+        </div>
+    </main>
+
+<%- include footer %>
+
+</div>
+
+      <script>
+
+      let product_id = localStorage.ProductId;
+      product_id = parseInt(product_id);
+
+      if(product_id === 0) {
+          alert("No Product Selected")
+
+      }
+
+      let moreProductslist = [];
+
+      for(let i = 0; moreProductslist.length<4; i++) {
+          let number = Math.floor(Math.random() * 20);
+          if(moreProductslist.includes(number) === false && moreProductslist.length < 4 && number != localStorage.ProductId && number != 1) {
+              moreProductslist.push(number);
+        }
+      }
+
+
+            let productlist = document.getElementById("productlist");
+            let req = "http://127.0.0.1:8000/products/"
+            fetch(req,  {
+                  method: 'GET',
+                  headers: {
+                 'Accept': 'application/json',
+                 'Content-Type': 'application/json',
+                 }})
+            .then(response => response.json())
+            .then(data => { 
+
+            console.log(JSON.stringify(data));
+
+
+            data.forEach(element => {
+               if(moreProductslist.includes(element.id)===true) {
+                let productName = element.name; // get the pokemon name
+                let productPrice = element.price;
+                let productImage = element.product_image;
+                let newListelement = document.createElement("div"); // create an li element
+                newListelement.innerHTML = '<a href="/product" onClick="grab(' + element.id + ')"><div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden"><div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url(\' ' + productImage +' \' )"></div><div class="px-5 py-3"><h3 class="text-gray-700 uppercase">' + productName + '</h3><span class="text-gray-500 mt-2">' + "€" + productPrice + '</span></div></div></a>';
+                productlist.appendChild(newListelement);}
+
+                if(element.id === product_id) {
+
+                document.getElementById("product_photo").src = element.product_image;
+                document.getElementById("product_name").textContent = element.name;
+                document.getElementById("product_price").textContent = "€" + element.price;
+                document.getElementById("title").textContent = element.name;
+
+                }
+
+            })});
+
+let productQuantity = document.getElementById("product_quantity").textContent;
+
+
+function minus() {
+
+    productQuantity = parseInt(productQuantity);
+
+    if(productQuantity > 0) {
+
+        productQuantity -= 1;
+
+    }
+
+    productQuantity= JSON.stringify(productQuantity);
+    document.getElementById("product_quantity").textContent = productQuantity;
+}
+
+function add() {
+
+    productQuantity = parseInt(productQuantity);
+
+    productQuantity = productQuantity + 1;
+
+    productQuantity= JSON.stringify(productQuantity);
+    document.getElementById("product_quantity").textContent = productQuantity;
+}
+
+
+function addToCart(ProductId){
+    let product_id = localStorage.ProductId;
+    let product_quantity = document.getElementById("product_quantity").textContent;
+    product_quantity = parseInt(product_quantity);
+    ProductId = parseInt(product_id);
+    let access = localStorage.getItem("access")
+    if(access){
+        fetch("http://127.0.0.1:8000/add/",
+        {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer "+access
+            },
+            method: "POST",
+            body: JSON.stringify({"product_id": ProductId, "quantity": product_quantity})
+        })
+        .then(response => response.json() )
+        .then(data => {
+            console.log(data)
+	    let addedProduct = document.getElementById("added_to_cart")	//the product has been added to the basket
+	    addedProduct.style.display = "block";
+            setTimeout(() => {addedProduct.style.display = "none"}, 1000);		//You should show some confirmation to the user
+        })
+
+    }
+    else (
+        //the user is not logged in,redirect them to the login page
+        window.location.href = "/login"
+    )
+}
+
+           function grab(id) {
+               localStorage.setItem("ProductId", id);
+           }
+
+      </script>
+
+  </body>
+</html>

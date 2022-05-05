@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html class="border-l" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    
+
+</head>
+
+<body>
+
+<%- include nav.ejs %>
+
+    <div class="container mx-auto my-5 p-5">
+        <div class="md:flex no-wrap md:-mx-2 ">
+            <!-- Left Side -->
+            <div class="w-full md:w-3/12 md:mx-2">
+                <!-- Profile Card -->
+                <div class="bg-white p-3 border-t-4 border-blue-500">
+                    <div class="image overflow-hidden">
+                        <img class="h-auto w-full mx-auto"
+                            src="https://cdn.pixabay.com/photo/2019/06/04/15/18/lion-4251608__480.png"
+                            alt="">
+                    </div>
+                    <h1 id="full_name" class="mb-5 text-black font-bold text-xl leading-8 my-1">No Name Entered</h1>
+
+                    
+                    <span class="font-bold">Change Password</span>       <input id="current_password" type="password" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm mb-2" placeholder="Current Password">
+<input id="new_password" type="password" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm mb-2" placeholder="New Password">
+<input id="retype_password" type="password" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm mb-2" placeholder="Retype New Password">
+
+
+<div class="flex justify-between items-center pt-2"> <div class="h-12 w-24 text-blue-500 hover:text-blue-400 text-xs font-medium m-1"></div> <button onClick="changePassword()" type="button" class="h-10 w-40 rounded font-medium text-xs bg-blue-500 hover:bg-blue-400 text-white">Change Password</button> </div>
+
+
+                </div>
+                <!-- End of profile card -->
+                
+                <!-- End of friends card -->
+            </div>
+            <!-- Right Side -->
+            <div class="w-full md:w-9/12 mx-2 h-64">
+
+
+                <!-- Experience and education -->
+                <div class="bg-white p-3 shadow-sm rounded-sm">
+
+                    <div class="grid grid-cols-2">
+                        <div>
+                            <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
+                                <span clas="text-green-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-person" viewBox="0 0 16 16">
+  <path d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
+  <path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+</svg>
+                                </span>
+                                <span class="tracking-wide">Personal Information</span>
+                            </div>
+
+                            <ul class="list-inside space-y-2 m-5">
+                                <li>
+                              <span>Email</span>      <input id="email_autofill" type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm mb-2 " placeholder="E-mail">
+                                  <span>First Name</span>  <input id="first_name_autofill" type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm mb-2" required placeholder="First name*">
+                           
+                                
+                                 <span>Last Name</span>  <input id="last_name_autofill" type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm mb-2" placeholder="Last name*"> 
+                         <span>Company</span>           <input id="company_autofill" type="text" class="mb-5 border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Company (optional)">
+<span>Telephone Number</span><input id="telephone_autofill" type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Phone Number*">
+                                </li>
+                               
+                                </li>
+                            </ul>
+
+<div class="flex pt-2"> <div class="h-12 w-5 text-blue-500 hover:text-blue-400 text-xs font-medium mt-15"></div> <button onClick='updateDetails()' type="button" class="h-12 w-48 rounded font-medium text-xs bg-blue-500 hover:bg-blue-400 text-white mt-10">Update Details</button> </div>
+
+
+                        </div>
+
+                        <div>
+                            <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
+                                <span clas="text-green-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16">
+  <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+</svg>
+                                </span>
+                                <span class="tracking-wide">Shipping Information</span>
+
+                            </div>
+                            <ul class="list-inside space-y-2 m-5">
+                                <li>
+
+<span>Address</span> <input id="address_autofill" type="text" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Address*"> 
+<input id="address_line_autofill" type="text" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm mb-2" placeholder="Apartment, suite, etc. (optional)">
+<span>Zipcode</span>      <input id="zipcode_autofill" type="text" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 mb-2 text-sm mb-2" placeholder="Zipcode*">
+<span>City</span>       <input id="city_autofill" type="text" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm mb-2" placeholder="City*">
+<span>County</span><input id="county_autofill" type="text" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm mb-2" placeholder="County/State*">
+<span>Country</span><input id="country_autofill" type="text" name="mail" class="border rounded h-10 w-full focus:outline-none focus:border-green-200 px-2 mt-2 text-sm" placeholder="Country*"> 
+                                   
+                                </li>
+
+                            </ul>
+<div class="flex justify-between items-center pt-2"> <div class="h-12 w-24 text-blue-500 hover:text-blue-400 text-xs font-medium m-1"></div> <button onClick="deleteAccount()" type="button" class="h-10 w-20 rounded font-medium text-xs bg-red-500 hover:bg-red-400 text-white">Delete Account</button> </div>
+
+
+                        </div>
+                    </div>
+                    <!-- End of Experience and education grid -->
+                </div>
+                <!-- End of profile tab -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+let user = 1;
+
+            let req = "http://127.0.0.1:8000/users/"
+            fetch(req,  {
+                  method: 'GET',
+                  headers: {
+                 'Accept': 'application/json',
+                 'Content-Type': 'application/json',
+                 "Authorization": 'Bearer ' + localStorage.getItem("access") }})
+            .then(response => response.json())
+            .then(data => { 
+
+            console.log(JSON.stringify(data));
+            
+            data.forEach(element => {
+
+            console.log(element.email);
+
+            user = element.user_id;
+
+            document.getElementById("email_autofill").value = element.email;
+            document.getElementById("first_name_autofill").value = element.first_name;
+            document.getElementById("last_name_autofill").value = element.last_name;
+            document.getElementById("address_autofill").value = element.address;
+            document.getElementById("zipcode_autofill").value = element.zipcode;
+            document.getElementById("country_autofill").value = element.country;
+            document.getElementById("city_autofill").value = element.city;
+            document.getElementById("county_autofill").value = element.county;
+            document.getElementById("company_autofill").value = element.company;
+            document.getElementById("address_line_autofill").value = element.address_line;
+            document.getElementById("telephone_autofill").value = element.telephone;
+            document.getElementById("full_name").textContent = element.first_name + " " + element.last_name;
+
+            })
+
+
+             });
+
+
+function updateDetails() {
+            
+            let email = document.getElementById("email_autofill").value;
+            let first_name = document.getElementById("first_name_autofill").value;
+            let last_name = document.getElementById("last_name_autofill").value;
+            let address = document.getElementById("address_autofill").value;
+            let zipcode = document.getElementById("zipcode_autofill").value;
+            let country = document.getElementById("country_autofill").value;
+            let city = document.getElementById("city_autofill").value;
+            let county = document.getElementById("county_autofill").value;
+            let telephone = document.getElementById("telephone_autofill").value;
+            let company= document.getElementById("company_autofill").value;
+            let address_line = document.getElementById("address_line_autofill").value;
+
+
+            let details = '{"email": ' + email + ',' +
+                           '"first_name": ' + first_name + ',' +
+                       '"last_name": ' + last_name + ',' +
+                       '"address": ' + address + ',' +
+                       '"zipcode": ' + JSON.stringify(zipcode) + ',' +
+                       '"county": ' + county + ',' +
+                       '"country": ' + country + ',' +
+                       '"city": '  + city + ',' +
+                       '"telephone": ' + JSON.stringify(telephone) + '}';
+
+              console.log(details)
+
+    let access = localStorage.getItem("access")
+    if(access){
+        fetch("http://127.0.0.1:8000/users/",
+        {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer "+access
+            },
+            method: "POST",
+            body: JSON.stringify({"user_id": user, "email": email, "last_name": last_name, "first_name": first_name, "address": address, "zipcode": zipcode, "county": county, "country": country, "city": city, "telephone": telephone, "company": company, "address_line": address_line})
+        })
+        .then(response => response.json() )
+        .then(data => {
+            console.log(data)  
+        })
+
+    }
+    window.location.reload();
+
+}
+
+function deleteAccount() {
+
+    let deleteAccount = confirm("This account will be permanently deleted");
+
+    if (deleteAccount) {
+        let access = localStorage.getItem("access")
+        if(access){
+            fetch("http://127.0.0.1:8000/delete_user/",
+            {
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer "+access
+                },
+                method: "DELETE",
+       
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data) 
+                window.localStorage.clear();
+                window.location.href = "/";
+                })
+                
+
+        }}
+    else {
+
+        console.log("Action Cancelled");
+     }
+    }
+
+
+
+function changePassword() {
+
+    let access = localStorage.getItem("access");
+    let old = document.getElementById("current_password").value;
+    let new1 = document.getElementById("new_password").value;
+    let new2 = document.getElementById("retype_password").value;
+
+    fetch("http://127.0.0.1:8000/change_password/", {
+         method: 'POST',
+         headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+         'Authorization': "Bearer " + access
+         },
+         body: JSON.stringify({"old": old, "new": new1, "new2": new2})
+         }).then(response=>response.json())
+         .then(data=>{
+
+          console.log(data);
+
+                  if(data.old === "Current Password Incorrect") {
+
+                      alert("Current Password Incorrect");
+
+                  }
+
+                  else if(data.new === "Passwords not matching") {
+
+                      alert("New Passwords Don't Match");
+
+                  }
+
+                  else if(data.new === "Password changed") {
+
+                      alert("Password changed successfully");
+                      window.location.reload()
+
+                  }
+
+                  else {
+
+                      alert("Error Occurred, Try Again");
+
+                  }
+});
+
+
+
+}
+
+</script>
+
+
+</body>
+
+<%- include footer %>
+
+</html>
+
+
+<!-- https://tailwindcomponents.com/component/profile-page -->

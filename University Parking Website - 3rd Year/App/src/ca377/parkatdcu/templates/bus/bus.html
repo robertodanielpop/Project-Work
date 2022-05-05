@@ -1,0 +1,164 @@
+{% load static %}
+{% load filter %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'parkatdcu/style.css' %}">
+
+<div class="title">
+<ul>
+<li><a href="{% url 'parkatdcu:index' %}">Carpark Information</a></li>
+<li><a href="{% url 'parkatdcu:campus' %}">Bus Information</a></li>
+<li><a class="a_no_border" href="https://loop.dcu.ie/mod/page/view.php?id=1362396" target="_blank">My DCU - Student</a></li>
+<li><a href="https://www.dcu.ie/iss/staff-my-page" target="_blank">My DCU - Staff</a></li>
+<li><a href="https://www.dcu.ie/library" target="_blank">Library</a></li>
+<li><a href="https://loop.dcu.ie" target="_blank">Loop</a></li>
+</ul>
+</div>
+
+
+<img class="logo" src = "{% static 'parkatdcu/images/DCU_logo.png' %}" alt= "dcu_logo" height = "128px" width = "120px">
+
+<h1 class="title2">Bus Time Information</h1>
+
+<div class = "bus_align">
+<div class = "bus">
+<h2>Departures from DCU</h2>
+{% for location in Data_Bus %}
+  {% for id in  location.trip_update.stop_time_update %}
+    {% for bus in DCU %}
+      {% if id.stop_id == bus.db_bus.Number and id.stop_sequence == 1 and id.schedule_relationship == "SCHEDULED" and id.stop_id in Bus %}
+        <p class = "underline">Bus Information: </p>
+        {% for locator in Location %}
+          {% if locator.Location_Route.Route_Number == location.trip_update.trip.trip_id %}
+            <p><b>Location Name: </b>{{ locator.Location_Route.Location_name }}</p>
+          {% endif %}
+        {% endfor %}
+        {% for route in Route %}
+          {% if route.Bus_Route.Route_Id == location.trip_update.trip.route_id %}
+            <p><b>Bus Number: </b>{{ route.Bus_Route.Bus_Number }}</p>
+          {% endif %}
+        {% endfor %}
+        <p><b>Time: </b> {{ location.trip_update.trip.start_time }}</p>
+        <p><b>Bus Stop: </b>{{ bus.db_bus.Name }}</p><br>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+{% endfor %}
+</div>
+
+<div class = "bus1">
+
+<h2>Bus Arrivals at DCU stops</h2>
+{% for location in Data_Bus %}
+  {% for id in  location.trip_update.stop_time_update %}
+    {% for bus in DCU %}
+      {% for layout in Roster %}
+        {% if location.trip_update.trip.trip_id == layout.Schedule.Route_Number and id.stop_sequence|integer == layout.Schedule.Sequence|integer and id.stop_id in Bus %}
+          {% if id.stop_id == bus.db_bus.Number and id.stop_sequence|integer != 1 and id.schedule_relationship == "SCHEDULED" %}
+            <p class = "underline">Bus Information: </p>
+            {% for locator in Location %}
+              {% if locator.Location_Route.Route_Number == location.trip_update.trip.trip_id %}
+                <p><b>Route Name: </b>{{ locator.Location_Route.Location_name }}</p>
+              {% endif %}
+            {% endfor %}
+            {% for route in Route %}
+              {% if route.Bus_Route.Route_Id == location.trip_update.trip.route_id %}
+                <p><b>Bus Number: </b>{{ route.Bus_Route.Bus_Number }}</p>
+              {% endif %}
+            {% endfor %}
+            {% for layout in Roster %}
+              {% if location.trip_update.trip.trip_id == layout.Schedule.Route_Number and id.stop_sequence|integer == layout.Schedule.Sequence|integer %}
+                <p><b>Time: </b>{{ layout.Schedule.Arrival|real:id.arrival.delay }}</p>
+              {% endif %}
+            {% endfor %}
+            <p><b>Location: </b>{{ bus.db_bus.Name }}</p><br>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  {% endfor %}
+{% endfor %}
+{% for layout in Roster %}
+  {% if layout.Schedule.Route_Number in No_Delay and layout.Schedule.Route_Id in Bus %}
+    {% for locator in Location %}
+      {% if locator.Location_Route.Route_Number == layout.Schedule.Route_Number %}
+        <p class = "underline">Bus Information</p>
+        <p><b>Location Name: </b>{{ locator.Location_Route.Location_name }}</p>
+      {% endif %}
+    {% endfor %}
+      {% for route in Route %}
+        {% if route.Bus_Route.Route_Id in layout.Schedule.Route_Number %}
+          <p><b>Bus Number: </b>{{ route.Bus_Route.Bus_Number }}</p>
+        {% endif %}
+      {% endfor %}
+      <p><b>Time: </b>{{ layout.Schedule.Arrival }}</p>
+      {% for bus in DCU %}
+        {% if bus.db_bus.Number == layout.Schedule.Route_Id %}
+          <p><b>Bus Stop: </b>{{ bus.db_bus.Name }}</p> <br><br>
+        {% endif %}
+      {% endfor %}
+  {% endif %}
+{% endfor %}
+</div>
+</div>
+
+<div class="button1"><div class="button"><input type="button" value="Back" onclick=location.href="{% url 'parkatdcu:campus' %}"></div></div>
+
+<footer class = "bottom">
+
+  <div class="left">
+  <ul>
+  <li><a href="http://www.dcu.ie/studentapps" target="_blank">Student Apps</a></li>
+  <li><a href="http://www.dcu.ie/staff" target="_blank">Staff Apps</a></li>
+  <li><a href="http://loop.dcu.ie/" target="_blank">Loop</a></li>
+  <li><a href="https://www.dcu.ie/info/information-dcu-disclaimer" target="_blank">Disclaimer</a></li>
+  </ul>
+  </div>
+  <div class="left">
+  <ul>
+  <li><a href="http://login.mail.dcu.ie/" target="_blank">Student Email</a></li>
+  <li><a href="http://apps.dcu.ie/" target="_blank">Staff Email</a></li>
+  </ul>
+  </div>
+  <div class="left">
+  <ul>
+  <li><a href="https://www.dcu.ie/iss/policies-privacy-and-cookies-statement-information-systems-services" target="_blank">Privacy and Cookies</a></li>
+  <li><a href="https://www.dcu.ie/marketing/contact-communications-marketing" target="_blank">Contact Us</a></li>
+  </ul>
+  </div>
+  </div>
+  
+  <div class = "social_position">
+  <div class = "social_media">
+  <a href="https://www.facebook.com/DCU" target="_blank">
+  <img src="{% static 'parkatdcu/images/facebook.png' %}" alt="Facebook Logo" height="27" width="27"></a>
+  </div>
+  <div class = "social_media">
+  <a href="https://twitter.com/DCU/" target="_blank">
+  <img src="{% static 'parkatdcu/images/twitter.png' %}" alt="Twitter Logo" height="27" width="27"></a>
+  </div>
+  <div class = "social_media">
+  <a href="http://www.youtube.com/user/DublinCityUniversity" target="_blank">
+  <img src="{% static 'parkatdcu/images/youtube.png' %}" alt="Youtube Logo" height="27" width="27"></a>
+  </div>
+  <div class = "social_media">
+  <a href="https://www.instagram.com/dublincityuniversity/" target="_blank">
+  <img src="{% static 'parkatdcu/images/instagram.png' %}" alt="Instagram Logo" height="27" width="27"></a>
+  </div>
+  </div>
+  
+  <div class="Other_right">
+  <div class="Other">
+  <li><a href="http://www.thehelix.ie/">
+  <img src="{% static 'parkatdcu/images/helix.png' %}" alt = "Helix Logo"></a></li>
+  </div>
+  <div class="Other">
+  <li><a href="http://www.esf.ie/">
+  <img src="{% static 'parkatdcu/images/Irelands-EU-S-IFP-2014-2020.jpg' %}" alt="Irelands EU S IFP Logo"></a></li>
+  </div>
+  <div class="Other">
+  <li><a href="http://www.esf.ie/">
+  <img src="{% static 'parkatdcu/images/eu_image.jpg' %}" alt="EU logo"></a></li>
+  </div>
+  </div>
+  
+  </footer>

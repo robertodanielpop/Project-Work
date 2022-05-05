@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tailwind Starter Template - Nordic Shop: Tailwind Toolbox</title>
+    <meta name="description" content="Free open source Tailwind CSS Store template">
+    <meta name="keywords" content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
+
+    <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+    <!--Replace with your tailwind.css once created-->
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+
+    <style>
+        .work-sans {
+            font-family: 'Work Sans', sans-serif;
+        }
+                
+        #menu-toggle:checked + #menu {
+            display: block;
+        }
+        
+        .hover\:grow {
+            transition: all 0.3s;
+            transform: scale(1);
+        }
+        
+        .hover\:grow:hover {
+            transform: scale(1.02);
+        }
+        
+        .carousel-open:checked + .carousel-item {
+            position: static;
+            opacity: 100;
+        }
+        
+        .carousel-item {
+            -webkit-transition: opacity 0.6s ease-out;
+            transition: opacity 0.6s ease-out;
+        }
+        
+        #carousel-1:checked ~ .control-1,
+        #carousel-2:checked ~ .control-2,
+        #carousel-3:checked ~ .control-3 {
+            display: block;
+        }
+        
+        .carousel-indicators {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            bottom: 2%;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 10;
+        }
+        
+        #carousel-1:checked ~ .control-1 ~ .carousel-indicators li:nth-child(1) .carousel-bullet,
+        #carousel-2:checked ~ .control-2 ~ .carousel-indicators li:nth-child(2) .carousel-bullet,
+        #carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet {
+            color: #000;
+            /*Set to match the Tailwind colour you want the active one to be */
+        }
+    </style>
+
+</head>
+
+<body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+<%- include scroller %>
+    <!--Nav-->
+<%- include nav %>
+    <div class="carousel relative container mx-auto" style="max-width:1600px;">
+        <div class="carousel-inner relative overflow-hidden w-full">
+            <!--Slide 1-->
+            <input class="hidden carousel-open" type="radio" id="carousel-1" name="carousel" aria-hidden="true" hidden="" checked="checked">
+            <div class="carousel-item absolute opacity-0" style="height:50vh;">
+                <div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1519505907962-0a6cb0167c73?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NzZ8fGd5bSUyMGVxdWlwbWVudHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1600&q=50');">
+
+                    <div class="container mx-auto">
+                        <div class="flex flex-col w-full lg:w-1/2 md:ml-16 items-center md:items-start px-6 tracking-wide">
+                            <p class="text-white text-2xl my-4">New In: Rowing Machine</p>
+                            <a onclick="grab(17)" class="text-white text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-blue-500 hover:border-white" href="/product">view product</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <label for="carousel-3" class="prev control-1 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900 leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
+            <label for="carousel-2" class="next control-1 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900 leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
+
+            <!--Slide 2-->
+            <input class="hidden carousel-open" type="radio" id="carousel-2" name="carousel" aria-hidden="true" hidden="">
+            <div class="carousel-item absolute opacity-0 bg-cover bg-right" style="height:50vh;">
+                <div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1611758493104-32e4ae0cba43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dHJ4fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=1600&q=80');">
+
+                    <div class="container mx-auto">
+                        <div class="flex flex-col w-full lg:w-1/2 md:ml-16 items-center md:items-start px-6 tracking-wide">
+                            <p class="text-white text-2xl my-4">TRX Suspension Trainer</p>
+                            <a onclick="grab(15)" class="text-white text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-blue-500 hover:border-white" href="/product">view product</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <label for="carousel-1" class="prev control-2 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900  leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
+            <label for="carousel-3" class="next control-2 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900  leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
+
+            <!--Slide 3-->
+            <input class="hidden carousel-open" type="radio" id="carousel-3" name="carousel" aria-hidden="true" hidden="">
+            <div class="carousel-item absolute opacity-0" style="height:50vh;">
+                <div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-cover bg-bottom" style="background-image: url('https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Njd8fGd5bXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1600&q=80');">
+
+                    <div class="container mx-auto">
+                        <div class="flex flex-col w-full lg:w-1/2 md:ml-16 items-center md:items-start px-6 tracking-wide">
+                            <p class="text-white text-2xl my-4">New Addition: Ropes</p>
+                            <a onclick="grab(16)" class="text-white text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-blue-500 hover:border-white" href="/product">view product</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <label for="carousel-2" class="prev control-3 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900  leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
+            <label for="carousel-1" class="next control-3 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900  leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
+
+            <!-- Add additional indicators for each slide-->
+            <ol class="carousel-indicators">
+                <li class="inline-block mr-3">
+                    <label for="carousel-1" class="carousel-bullet cursor-pointer block text-4xl text-gray-400 hover:text-gray-900">•</label>
+                </li>
+                <li class="inline-block mr-3">
+                    <label for="carousel-2" class="carousel-bullet cursor-pointer block text-4xl text-gray-400 hover:text-gray-900">•</label>
+                </li>
+                <li class="inline-block mr-3">
+                    <label for="carousel-3" class="carousel-bullet cursor-pointer block text-4xl text-gray-400 hover:text-gray-900">•</label>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+
+    <!--	 
+
+Alternatively if you want to just have a single hero
+
+<section class="w-full mx-auto bg-nordic-gray-light flex pt-12 md:pt-0 md:items-center bg-cover bg-right" style="max-width:1600px; height: 32rem; background-image: url('https://images.unsplash.com/photo-1422190441165-ec2956dc9ecc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80');">
+
+	<div class="container mx-auto">
+
+		<div class="flex flex-col w-full lg:w-1/2 justify-center items-start  px-6 tracking-wide">
+			<h1 class="text-black text-2xl my-4">Stripy Zig Zag Jigsaw Pillow and Duvet Set</h1>
+			<a class="text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-black hover:border-black" href="#">products</a>
+
+		</div>
+
+	  </div>
+
+</section>
+
+-->
+
+    <section class="bg-white py-8">
+
+        <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+
+            <nav id="store" class="w-full z-30 top-0 px-6 py-1">
+                <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
+
+                    <a class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl " href="#">
+				Store
+			</a>
+
+                    <div class="flex items-center" id="store-nav-content">
+
+                       
+                                <div class="pt-2 relative mx-auto text-gray-600">
+        <input id="search_content" class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+          type="search" name="search" placeholder="Search">
+        <button onClick="search()" type="submit" class="absolute right-0 top-0 mt-5 mr-4">
+          <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+            viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve"
+            width="512px" height="512px">
+            <path
+              d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+          </svg>
+        </button>
+      </div>
+
+                    </div>
+              </div>
+            </nav>
+
+            <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
+                <a onClick="grab(18)" href="/product">
+                    <img class="hover:grow hover:shadow-lg" src="https://images.unsplash.com/photo-1590487988256-9ed24133863e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400&q=80">
+                    <div class="pt-3 flex items-center justify-between">
+                        <p class="">Bench, Squat Rack, Cable Machine</p>
+                        
+                    </div>
+                    <p class="pt-1 text-gray-900">€800.00</p>
+                </a>
+            </div>
+
+            <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
+                <a onClick="grab(19)" href="/product">
+                    <img class="hover:grow hover:shadow-lg" src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Z3ltJTIwZXF1aXBtZW50fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80">
+                    <div class="pt-3 flex items-center justify-between">
+                        <p class="">Elastic Cable</p>
+                        
+                    </div>
+                    <p class="pt-1 text-gray-900">€25.00</p>
+                </a>
+            </div>
+
+            <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
+                <a onClick="grab(12)" href="/product">
+                    <img class="hover:grow hover:shadow-lg" src="https://images.unsplash.com/photo-1597076537061-a6b58163aa45?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8Z3ltJTIwZXF1aXBtZW50fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80">
+                    <div class="pt-3 flex items-center justify-between">
+                        <p class="">Dumbbells</p>
+                        
+                    </div>
+                    <p class="pt-1 text-gray-900">€150.00</p>
+                </a>
+            </div>
+
+            <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
+                <a onClick="grab(11)" href="/product">
+                    <img class="hover:grow hover:shadow-lg" src="https://images.unsplash.com/photo-1526401485004-46910ecc8e51?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fGd5bSUyMGVxdWlwbWVudHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=400&h=400&q=80">
+                    <div class="pt-3 flex items-center justify-between">
+                        <p class="">Plates</p>
+                        
+                    </div>
+                    <p class="pt-1 text-gray-900">€150.00</p>
+                </a>
+            </div>
+
+            <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
+                <a onClick="grab(20)" href="/product">
+                    <img class="hover:grow hover:shadow-lg" src="https://images.unsplash.com/photo-1620188552551-9f98661cbef7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8ODR8fGd5bSUyMGVxdWlwbWVudHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=400&h=400&q=80">
+                    <div class="pt-3 flex items-center justify-between">
+                        <p class="">Medicine Balls</p>
+                        
+                    </div>
+                    <p class="pt-1 text-gray-900">€150.00</p>
+                </a>
+            </div>
+
+            <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
+                <a onClick="grab(13)" href="/product">
+                    <img class="hover:grow hover:shadow-lg" src="https://images.unsplash.com/photo-1591741535018-d042766c62eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTM1fHxneW0lMjBlcXVpcG1lbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=400&h=400&q=80">
+                    <div class="pt-3 flex items-center justify-between">
+                        <p class="">Bike</p>
+                        
+                    </div>
+                    <p class="pt-1 text-gray-900">€250.00</p>
+                </a>
+            </div>
+
+            <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
+                <a onClick="grab(14)" href="/product">
+                    <img class="hover:grow hover:shadow-lg" src="https://images.unsplash.com/photo-1618354691249-18772bbac3a5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjAxfHxneW18ZW58MHx8MHx8&auto=format&fit=crop&w=400&h=400&q=80">
+                    <div class="pt-3 flex items-center justify-between">
+                        <p class="">Bottle</p>
+                        
+                    </div>
+                    <p class="pt-1 text-gray-900">€10.00</p>
+                </a>
+            </div>
+
+            <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
+                <a onClick="grab(10)" href="/product">
+                    <img class="hover:grow hover:shadow-lg" src=https://images.unsplash.com/photo-1632077804406-188472f1a810?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjV8fGd5bSUyMGVxdWlwbWVudHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=400&h=400&q=80">
+                    <div class="pt-3 flex items-center justify-between">
+                        <p class="">Kettlebells</p>
+                        
+                    </div>
+                    <p class="pt-1 text-gray-900">€150.00</p>
+                </a>
+            </div>
+
+            </div>
+
+    </section>
+    <section class="container mx-auto bg-white py-8 border-t border-gray-400">
+        <div class="container flex px-3 py-8 ">
+            <div class="w-full mx-auto flex flex-wrap">
+                <div class="flex w-full lg:w-1/2 ">
+                    <div class="px-3 md:px-0">
+                        <h3 class="font-bold text-gray-900">Contact Us</h3>
+                        <p class="py-4">
+                            Need any help or assistance? Out team will be happy to help. Email us any inquiries and we will get back to you.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex w-full lg:justify-end lg:text-right">
+                    <div class="px-2">
+                        <a href="/contact"<button class="block w-full bg-blue-500 hover:bg-blue-400 focus:bg-blue-400 transition-colors text-white rounded-lg px-3 py-2 font-semibold">Get in Contact.</button> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+    <section class="bg-white py-8">
+<%- include subscribe %>
+    </section>
+
+<script>
+
+    let token = localStorage.access;
+    let headers = {'Authorisation': 'Bearer {token}'};
+
+    let req = "http://127.0.0.1:8000/products/"
+    fetch(req,  {
+                  method: 'GET',
+                  headers: {
+                 'Accept': 'application/json',
+                 'Content-Type': 'application/json',
+                 "Authorization": 'Bearer ' + localStorage.getItem("access") }})
+        .then(response => response.json())
+        .then(data => console.log(data));
+
+    let log = console.log(req);
+
+
+
+
+
+           function grab(id) {
+               localStorage.setItem("ProductId", id);
+           }
+
+function search() {
+
+       let product_index = [];
+
+       let searchData = document.getElementById("search_content").value;
+
+       let req = "http://127.0.0.1:8000/products/"
+       fetch(req,  {
+                  method: 'GET',
+                  headers: {
+                 'Accept': 'application/json',
+                 'Content-Type': 'application/json',
+                 "Authorization": 'Bearer ' + localStorage.getItem("access") }})
+        .then(response => response.json())
+
+        .then(data => { data.forEach( element => {
+
+            searchData = searchData.toLowerCase();
+            let name = element.name.toLowerCase();
+
+
+
+            if(name.includes(searchData)) {
+
+                product_index.push(element.id);
+
+            }
+
+            localStorage.setItem("SearchData", product_index); 
+            window.location.href = '/searchproducts';})});
+
+            
+          
+}
+
+
+
+        let enter = document.getElementById("search_content");
+        enter.addEventListener("keydown", function(e) {
+            
+            if(e.key === "Enter") { validate(e) }
+
+        })
+
+        function validate(e) {
+            let text = e.target.value;
+            search()
+        }
+
+</script>
+</body>
+<footer>
+<%- include footer %>
+</footer>
+</html>
+
+<!--https://github.com/tailwindtoolbox/Nordic-Store-->
